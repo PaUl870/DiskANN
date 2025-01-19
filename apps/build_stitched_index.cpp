@@ -306,12 +306,12 @@ void prune_and_save(path final_index_path_prefix, path full_index_path_prefix, p
     std::cout << "test1" << std::endl;
     size_t dimension, number_of_label_points;
     auto diskann_cout_buffer = diskann::cout.rdbuf(nullptr);
+    std::cout << "test2" << std::endl;
     auto std_cout_buffer = std::cout.rdbuf(nullptr);
+    std::cout << "test3" << std::endl;
     auto pruning_index_timer = std::chrono::high_resolution_clock::now();
 
-    std::cout << "test3" << std::endl;
     diskann::get_bin_metadata(input_data_path, number_of_label_points, dimension);
-    std::cout << "test2" << std::endl;
 
 
     diskann::Index<T> index(diskann::Metric::L2, dimension, number_of_label_points, nullptr, nullptr, 0, false, false,

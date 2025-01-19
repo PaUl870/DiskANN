@@ -489,6 +489,7 @@ int main(int argc, char **argv)
                 return -1;
             }
         }
+        peak_memory_footprint();
     }
     catch (std::exception &e)
     {
@@ -497,5 +498,4 @@ int main(int argc, char **argv)
         return -1;
     }
 
-    peak_memory_footprint();
 }

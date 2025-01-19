@@ -460,8 +460,8 @@ int main(int argc, char **argv)
 
     std::chrono::duration<double> index_time = std::chrono::high_resolution_clock::now() - index_timer;
     std::cout << "pruned/stitched graph generated in " << index_time.count() << " seconds" << std::endl;
+    peak_memory_footprint();
 
     clean_up_artifacts(input_data_path, final_index_path_prefix, all_labels);
 
-    peak_memory_footprint();
 }

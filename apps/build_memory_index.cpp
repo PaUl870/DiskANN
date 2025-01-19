@@ -175,6 +175,7 @@ int main(int argc, char **argv)
         index->build(data_path, data_num, filter_params);
         index->save(index_path_prefix.c_str());
         index.reset();
+        peak_memory_footprint();
         return 0;
     }
     catch (const std::exception &e)
@@ -184,6 +185,5 @@ int main(int argc, char **argv)
         return -1;
     }
 
-    peak_memory_footprint();
 
 }

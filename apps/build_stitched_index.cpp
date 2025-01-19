@@ -303,6 +303,7 @@ void prune_and_save(path final_index_path_prefix, path full_index_path_prefix, p
                     tsl::robin_map<std::string, uint32_t> label_entry_points, std::string universal_label,
                     path label_data_path, uint32_t num_threads)
 {
+    std::cout << "test1" << std::endl;
     size_t dimension, number_of_label_points;
     auto diskann_cout_buffer = diskann::cout.rdbuf(nullptr);
     auto std_cout_buffer = std::cout.rdbuf(nullptr);
@@ -445,6 +446,7 @@ int main(int argc, char **argv)
     save_full_index(full_index_path_prefix, input_data_path, stitched_graph_size, stitched_graph, label_entry_points,
                     universal_label, labels_file_to_use);
 
+    std::cout << "test0" << std::endl;
     // 6. run a prune on the stitched index, and save to disk
     if (data_type == "uint8")
         prune_and_save<uint8_t>(final_index_path_prefix, full_index_path_prefix, input_data_path, stitched_graph,

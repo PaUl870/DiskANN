@@ -20,8 +20,32 @@
 #include "utils.h"
 #include "program_options_utils.hpp"
 
+#include <unistd.h>
+
 namespace po = boost::program_options;
 typedef std::tuple<std::vector<std::vector<uint32_t>>, uint64_t> stitch_indices_return_values;
+
+void peak_memory_footprint()
+{
+
+  unsigned iPid = (unsigned)getpid();
+
+  std::cout << "PID: " << iPid << std::endl;
+
+  std::string status_file = "/proc/" + std::to_string(iPid) + "/status";
+  std::ifstream info(status_file);
+  if (!info.is_open())
+  {
+    std::cout << "memory information open error!" << std::endl;
+  }
+  std::string tmp;
+  while (getline(info, tmp))
+  {
+    if (tmp.find("Name:") != std::string::npos || tmp.find("VmPeak:") != std::string::npos || tmp.find("VmHWM:") != std::string::npos)
+      std::cout << tmp << std::endl;
+  }
+  info.close();
+}
 
 /*
  * Inline function to display progress bar.
@@ -438,4 +462,6 @@ int main(int argc, char **argv)
     std::cout << "pruned/stitched graph generated in " << index_time.count() << " seconds" << std::endl;
 
     clean_up_artifacts(input_data_path, final_index_path_prefix, all_labels);
+
+    peak_memory_footprint();
 }

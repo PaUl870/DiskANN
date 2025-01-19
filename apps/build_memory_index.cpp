@@ -22,6 +22,28 @@
 
 namespace po = boost::program_options;
 
+void peak_memory_footprint()
+{
+
+  unsigned iPid = (unsigned)getpid();
+
+  std::cout << "PID: " << iPid << std::endl;
+
+  std::string status_file = "/proc/" + std::to_string(iPid) + "/status";
+  std::ifstream info(status_file);
+  if (!info.is_open())
+  {
+    std::cout << "memory information open error!" << std::endl;
+  }
+  std::string tmp;
+  while (getline(info, tmp))
+  {
+    if (tmp.find("Name:") != std::string::npos || tmp.find("VmPeak:") != std::string::npos || tmp.find("VmHWM:") != std::string::npos)
+      std::cout << tmp << std::endl;
+  }
+  info.close();
+}
+
 int main(int argc, char **argv)
 {
     std::string data_type, dist_fn, data_path, index_path_prefix, label_file, universal_label, label_type;
@@ -161,4 +183,7 @@ int main(int argc, char **argv)
         diskann::cerr << "Index build failed." << std::endl;
         return -1;
     }
+
+    peak_memory_footprint();
+
 }

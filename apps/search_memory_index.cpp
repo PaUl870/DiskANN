@@ -273,6 +273,7 @@ int search_memory_index(diskann::Metric &metric, const std::string &index_path, 
         std::cout << std::endl;
     }
 
+    peak_memory_footprint();
     std::cout << "Done searching. Now saving results " << std::endl;
     uint64_t test_id = 0;
     for (auto L : Lvec)
@@ -489,7 +490,6 @@ int main(int argc, char **argv)
                 return -1;
             }
         }
-        peak_memory_footprint();
     }
     catch (std::exception &e)
     {
